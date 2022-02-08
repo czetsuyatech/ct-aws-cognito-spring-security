@@ -11,8 +11,9 @@ import org.springframework.context.annotation.Import;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Import(value = {
+    CtWebSecurityConfig.class,
     CtMethodSecurityConfig.class
 })
-@interface EnableCtSecurity {
+public @interface EnableCtSecurity {
 
 }
