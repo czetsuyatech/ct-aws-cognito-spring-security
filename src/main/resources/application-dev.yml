@@ -1,0 +1,18 @@
+server:
+  port: 8080
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          cognito:
+            client-id: ${AWS_COGNITO_CLIENT_ID}
+            client-secret: ${AWS_COGNITO_CLIENT_SECRET}
+            scope: openid
+            redirect-uri: http://localhost:8080/login/oauth2/code/cognito
+            client-name: ${AWS_COGNITO_CLIENT_NAME}
+        provider:
+          cognito:
+            issuer-uri: https://cognito-idp.${AWS_COGNITO_REGION}.amazonaws.com/${AWS_COGNITO_POOL_ID}
+            user-name-attribute: cognito:username
