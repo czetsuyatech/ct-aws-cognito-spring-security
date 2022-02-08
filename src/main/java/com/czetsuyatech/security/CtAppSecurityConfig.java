@@ -31,10 +31,12 @@ public class CtAppSecurityConfig {
 //          .httpBasic().disable()
             .formLogin().disable()
 
-//          .and()
-//          .authorizeHttpRequests()
-//          .antMatchers("/api/**").authenticated()
+            .authorizeHttpRequests()
+            .antMatchers("/api/**").authenticated()
+            .and()
+            .oauth2Login()
 
+            .and()
             .authorizeHttpRequests()
             .antMatchers(HttpMethod.GET, "/actuator/health").permitAll()
             .anyRequest().permitAll()
