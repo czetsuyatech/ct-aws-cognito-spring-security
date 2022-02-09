@@ -1,6 +1,5 @@
-package com.czetsuyatech.spring.security;
+package com.czetsuyatech.spring.security.cognito;
 
-import com.czetsuyatech.spring.security.method.CtMethodSecurityConfiguration;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -8,13 +7,15 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import org.springframework.context.annotation.Import;
 
+/**
+ * @author Edward P. Legaspi | czetsuya@gmail.com
+ */
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Import(value = {
-    CtWebSecurityConfiguration.class,
-    CtMethodSecurityConfiguration.class
+    CognitoAutoConfiguration.class
 })
-public @interface EnableCtSecurity {
+public @interface EnableCognitoSecurity {
 
 }
