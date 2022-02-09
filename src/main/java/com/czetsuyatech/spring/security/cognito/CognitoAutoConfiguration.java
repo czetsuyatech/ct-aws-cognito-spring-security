@@ -55,7 +55,7 @@ public class CognitoAutoConfiguration {
 
   @Bean
   public CtJwtTokenProcessor cognitoJwtTokenProcessor() throws MalformedURLException {
-    return new CognitoJwtTokenProcessor(configurableJWTProcessor(), cognitoJwtConfigData);
+    return new CognitoJwtTokenProcessor(configurableJWTProcessor(), cognitoJwtConfigData, jwtPrincipal());
   }
 
   @Bean

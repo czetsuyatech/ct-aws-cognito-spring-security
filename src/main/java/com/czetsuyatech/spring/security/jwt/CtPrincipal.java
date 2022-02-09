@@ -18,4 +18,10 @@ public class CtPrincipal implements Principal, Serializable {
   private String name;
   private String token;
   private User user;
+
+  public void setPrincipalData(String name, String token, User user) {
+    this.name = name;
+    this.token = token;
+    this.user = user;
+  }
 }

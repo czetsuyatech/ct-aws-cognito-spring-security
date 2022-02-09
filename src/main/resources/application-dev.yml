@@ -6,10 +6,10 @@ app:
     jwt:
       cognito:
         group-field: cognito:groups
-        user-name-field: cognito:username
+        user-name-field: username
         pool-id: ${AWS_COGNITO_POOL_ID}
         region: ${AWS_COGNITO_REGION}
-        
+
 #spring:
 #  security:
 #    oauth2:

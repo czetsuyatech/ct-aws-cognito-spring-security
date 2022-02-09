@@ -9,7 +9,6 @@ import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.proc.ConfigurableJWTProcessor;
 import java.util.List;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +28,7 @@ public class CognitoJwtTokenProcessor implements CtJwtTokenProcessor {
 
   private final ConfigurableJWTProcessor configurableJWTProcessor;
   private final CognitoJwtConfigData cognitoJwtConfigData;
+  private final CtPrincipal ctPrincipal;
 
   @Override
   public Authentication getAuthentication(HttpServletRequest request)
@@ -59,8 +59,8 @@ public class CognitoJwtTokenProcessor implements CtJwtTokenProcessor {
             group -> new SimpleGrantedAuthority(SecurityConstants.ROLE_PREFIX + group.toUpperCase()));
         User user = new User(username, SecurityConstants.EMPTY_PWD, grantedAuthorities);
 
-        CtPrincipal principal = new CtPrincipal(username, stripBearerToken(idToken), user);
-        return new CognitoAuthenticationToken(principal, claimsSet, grantedAuthorities);
+        ctPrincipal.setPrincipalData(username, stripBearerToken(idToken), user);
+        return new CognitoAuthenticationToken(ctPrincipal, claimsSet, grantedAuthorities);
       }
     }
 
@@ -83,6 +83,6 @@ public class CognitoJwtTokenProcessor implements CtJwtTokenProcessor {
   }
 
   private static <T, U> List<U> convertList(List<T> from, Function<T, U> func) {
-    return from.stream().map(func).collect(Collectors.toList());
+    return from.stream().map(func).toList();
   }
 }
