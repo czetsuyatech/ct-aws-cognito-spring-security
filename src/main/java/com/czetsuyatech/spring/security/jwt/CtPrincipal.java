@@ -5,7 +5,6 @@ import java.security.Principal;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.security.core.userdetails.User;
 
 /**
  * @author Edward P. Legaspi | czetsuya@gmail.com
@@ -16,12 +15,8 @@ import org.springframework.security.core.userdetails.User;
 public class CtPrincipal implements Principal, Serializable {
 
   private String name;
-  private String token;
-  private User user;
 
-  public void setPrincipalData(String name, String token, User user) {
+  public void setPrincipalData(String name) {
     this.name = name;
-    this.token = token;
-    this.user = user;
   }
 }

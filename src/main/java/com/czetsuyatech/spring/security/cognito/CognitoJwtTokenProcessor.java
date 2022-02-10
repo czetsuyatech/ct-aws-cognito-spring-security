@@ -7,7 +7,9 @@ import com.czetsuyatech.spring.security.jwt.CtJwtTokenProcessor;
 import com.czetsuyatech.spring.security.jwt.CtPrincipal;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.proc.ConfigurableJWTProcessor;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -31,8 +33,7 @@ public class CognitoJwtTokenProcessor implements CtJwtTokenProcessor {
   private final CtPrincipal ctPrincipal;
 
   @Override
-  public Authentication getAuthentication(HttpServletRequest request)
-      throws Exception {
+  public Authentication getAuthentication(HttpServletRequest request) throws Exception {
 
     String idToken = request.getHeader(SecurityConstants.AUTHORIZATION_HEADER);
     if (StringUtils.hasText(idToken)) {
@@ -54,13 +55,16 @@ public class CognitoJwtTokenProcessor implements CtJwtTokenProcessor {
       String username = claimsSet.getClaims().get(cognitoJwtConfigData.getUserNameField()).toString();
 
       if (username != null) {
-        List<String> groups = (List<String>) claimsSet.getClaims().get(cognitoJwtConfigData.getGroupField());
+        Optional<Object> optGroup = Optional.ofNullable(
+            claimsSet.getClaims().get(cognitoJwtConfigData.getGroupField()));
+        List<String> groups = (List<String>) optGroup.orElse(new ArrayList<>());
         List<GrantedAuthority> grantedAuthorities = convertList(groups,
             group -> new SimpleGrantedAuthority(SecurityConstants.ROLE_PREFIX + group.toUpperCase()));
         User user = new User(username, SecurityConstants.EMPTY_PWD, grantedAuthorities);
 
-        ctPrincipal.setPrincipalData(username, stripBearerToken(idToken), user);
-        return new CognitoAuthenticationToken(ctPrincipal, claimsSet, grantedAuthorities);
+        ctPrincipal.setPrincipalData(username);
+        return new CognitoAuthenticationToken(ctPrincipal, stripBearerToken(idToken), user, claimsSet,
+            grantedAuthorities);
       }
     }
 

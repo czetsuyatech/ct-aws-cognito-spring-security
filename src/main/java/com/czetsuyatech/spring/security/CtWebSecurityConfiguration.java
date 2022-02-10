@@ -25,7 +25,6 @@ public class CtWebSecurityConfiguration extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
 
-    super.configure(http);
     httpSecurityConfig.configure(http);
   }
 }

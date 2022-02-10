@@ -33,21 +33,15 @@ public class CtAppSecurityConfig {
             .and()
             .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-
             .sessionAuthenticationStrategy(new NullAuthenticatedSessionStrategy())
 
             .and()
-//          .httpBasic().disable()
-//            .formLogin().disable()
+            .httpBasic().disable()
+            .formLogin().disable()
 
             .authorizeHttpRequests()
+            .antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
             .antMatchers("/api/**").authenticated()
-//            .and()
-//            .oauth2Login()
-
-            .and()
-            .authorizeHttpRequests()
-            .antMatchers(HttpMethod.GET, "/actuator/health").permitAll()
             .anyRequest().permitAll()
 
             .and()
