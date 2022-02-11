@@ -2,6 +2,7 @@ package com.czetsuyatech.spring.security.method;
 
 import org.springframework.security.access.expression.method.MethodSecurityExpressionOperations;
 import org.springframework.security.core.Authentication;
+import org.springframework.util.Assert;
 
 public abstract class CtMethodSecurityExpressionRoot implements MethodSecurityExpressionOperations {
 
@@ -13,9 +14,7 @@ public abstract class CtMethodSecurityExpressionRoot implements MethodSecurityEx
 
   public CtMethodSecurityExpressionRoot(Authentication authentication) {
 
-    if (authentication == null) {
-      throw new IllegalArgumentException("Authentication object cannot be null");
-    }
+    Assert.notNull(authentication, "authentication object cannot be null");
 
     this.authentication = authentication;
   }

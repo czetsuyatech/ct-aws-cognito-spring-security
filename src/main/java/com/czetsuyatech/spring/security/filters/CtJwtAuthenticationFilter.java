@@ -1,4 +1,4 @@
-package com.czetsuyatech.spring.security.cognito;
+package com.czetsuyatech.spring.security.filters;
 
 import com.czetsuyatech.spring.security.jwt.CtJwtTokenProcessor;
 import java.io.IOException;
@@ -7,7 +7,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -15,11 +19,12 @@ import org.springframework.web.filter.OncePerRequestFilter;
  * @author Edward P. Legaspi | czetsuya@gmail.com
  */
 @Slf4j
-public class CognitoJwtAuthenticationFilter extends OncePerRequestFilter {
+public class CtJwtAuthenticationFilter extends OncePerRequestFilter implements ApplicationContextAware {
 
+  private ApplicationContext applicationContext;
   private CtJwtTokenProcessor ctJwtTokenProcessor;
 
-  public CognitoJwtAuthenticationFilter(CtJwtTokenProcessor ctJwtTokenProcessor) {
+  public CtJwtAuthenticationFilter(CtJwtTokenProcessor ctJwtTokenProcessor) {
     this.ctJwtTokenProcessor = ctJwtTokenProcessor;
   }
 
@@ -32,7 +37,9 @@ public class CognitoJwtAuthenticationFilter extends OncePerRequestFilter {
       authentication = ctJwtTokenProcessor.getAuthentication((HttpServletRequest) request);
 
       if (authentication != null) {
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+        SecurityContext context = SecurityContextHolder.createEmptyContext();
+        context.setAuthentication(authentication);
+        SecurityContextHolder.setContext(context);
       }
 
     } catch (Exception e) {
@@ -41,5 +48,10 @@ public class CognitoJwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
     filterChain.doFilter(request, response);
+  }
+
+  @Override
+  public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+    this.applicationContext = applicationContext;
   }
 }

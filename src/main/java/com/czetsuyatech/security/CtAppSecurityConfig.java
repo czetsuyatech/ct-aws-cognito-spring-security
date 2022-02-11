@@ -2,15 +2,12 @@ package com.czetsuyatech.security;
 
 import com.czetsuyatech.spring.security.CtHttpSecurityConfigurer;
 import com.czetsuyatech.spring.security.EnableCtSecurity;
-import com.czetsuyatech.spring.security.cognito.CognitoJwtAuthenticationFilter;
-import com.czetsuyatech.spring.security.cognito.EnableCognitoSecurity;
 import com.czetsuyatech.spring.security.method.CtMethodSecurityExpressionHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.session.NullAuthenticatedSessionStrategy;
 
 /**
@@ -18,11 +15,8 @@ import org.springframework.security.web.authentication.session.NullAuthenticated
  */
 @Configuration
 @EnableCtSecurity
-@EnableCognitoSecurity
 @RequiredArgsConstructor
 public class CtAppSecurityConfig {
-
-  private final CognitoJwtAuthenticationFilter jwtAuthenticationFilter;
 
   @Bean
   public CtHttpSecurityConfigurer httpSecurityConfig() {
@@ -43,9 +37,6 @@ public class CtAppSecurityConfig {
             .antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
             .antMatchers("/api/**").authenticated()
             .anyRequest().permitAll()
-
-            .and()
-            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
         ;
   }
 

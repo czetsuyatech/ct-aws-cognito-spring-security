@@ -13,7 +13,8 @@ import org.springframework.context.annotation.Import;
 @Documented
 @Import(value = {
     CtWebSecurityConfiguration.class,
-    CtMethodSecurityConfiguration.class
+    CtMethodSecurityConfiguration.class,
+    CtSecurityAutoConfiguration.class
 })
 public @interface EnableCtSecurity {
 

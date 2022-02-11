@@ -7,6 +7,7 @@ server:
   port: 8080
 
 app:
+  protected-url: /api/**
   security:
     jwt:
       cognito:

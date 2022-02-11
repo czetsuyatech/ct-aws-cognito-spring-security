@@ -31,6 +31,19 @@ public class ApiTestController {
     return "Hello " + auth.getPrincipal();
   }
 
+  @GetMapping("/api/testing/authenticated")
+  @PreAuthorize("isAuthenticated()")
+  @ResponseStatus(HttpStatus.OK)
+  public String authenticated(@CurrentSecurityContext(expression = "authentication") Authentication auth) {
+
+    log.debug("" + auth.getPrincipal());
+    log.debug("" + auth.getCredentials());
+    log.debug("" + auth.getDetails());
+
+    return "Hello " + auth.getPrincipal();
+  }
+
+
   @GetMapping("/api/testing/authorized")
   @PreAuthorize("isAuthorized()")
   @ResponseStatus(HttpStatus.OK)

@@ -2,21 +2,20 @@ package com.czetsuyatech.spring.security.jwt;
 
 import java.io.Serializable;
 import java.security.Principal;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author Edward P. Legaspi | czetsuya@gmail.com
  */
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class CtPrincipal implements Principal, Serializable {
+@RequiredArgsConstructor
+public class CtPrincipal<T extends CtSecurityContext> implements Principal, Serializable {
 
-  private String name;
+  private final String name;
+  private final T context;
 
-  public void setPrincipalData(String name) {
-    this.name = name;
+  public T getCtSecurityContext() {
+    return context;
   }
 }
