@@ -19,6 +19,26 @@
     <ct.universal.signon>1.0.0</ct.universal.signon>
   </properties>
 
+  <organization>
+    <name>CzetsuyaTech</name>
+    <url>https://www.czetsuyatech.com</url>
+  </organization>
+  <licenses>
+    <license>
+      <name>The MIT License</name>
+      <url>https://opensource.org/licenses/MIT</url>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <id>czetsuya</id>
+      <name>Edward P. Legaspi</name>
+      <email>czetsuya@gmail.com</email>
+      <organization>CzetsuyaTech</organization>
+      <organizationUrl>https://www.czetsuyatech.com</organizationUrl>
+    </developer>
+  </developers>
+
   <dependencies>
     <dependency>
       <groupId>com.czetsuyatech</groupId>
