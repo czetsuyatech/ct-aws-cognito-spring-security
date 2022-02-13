@@ -1,0 +1,33 @@
+logging:
+  level:
+    root: error
+    com.czetsuyatech: debug
+
+server:
+  port: 8080
+
+app:
+  protected-url: /api/**
+  security:
+    jwt:
+      cognito:
+        group-field: cognito:groups
+        user-name-field: username
+        pool-id: ${AWS_COGNITO_POOL_ID}
+        region: ${AWS_COGNITO_REGION}
+
+#spring:
+#  security:
+#    oauth2:
+#      client:
+#        registration:
+#          cognito:
+#            client-id: ${AWS_COGNITO_CLIENT_ID}
+#            client-secret: ${AWS_COGNITO_CLIENT_SECRET}
+#            scope: openid
+#            redirect-uri: http://localhost:8080/login/oauth2/code/cognito
+#            client-name: ${AWS_COGNITO_CLIENT_NAME}
+#        provider:
+#          cognito:
+#            issuer-uri: https://cognito-idp.${app.security.jwt.cognito.region}.amazonaws.com/${app.security.jwt.cognito.pool-id}
+#            user-name-attribute: ${app.security.jwt.cognito.user-name-field}

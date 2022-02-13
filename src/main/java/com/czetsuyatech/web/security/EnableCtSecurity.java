@@ -1,5 +1,6 @@
-package com.czetsuyatech.spring.security;
+package com.czetsuyatech.web.security;
 
+import com.czetsuyatech.web.security.method.CtMethodSecurityConfiguration;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -11,8 +12,10 @@ import org.springframework.context.annotation.Import;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Import(value = {
-    CtMethodSecurityConfig.class
+    CtWebSecurityConfiguration.class,
+    CtMethodSecurityConfiguration.class,
+    CtSecurityAutoConfiguration.class
 })
-@interface EnableCtSecurity {
+public @interface EnableCtSecurity {
 
 }

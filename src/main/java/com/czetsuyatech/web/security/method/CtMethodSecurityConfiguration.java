@@ -1,4 +1,4 @@
-package com.czetsuyatech.spring.security;
+package com.czetsuyatech.web.security.method;
 
 import org.aopalliance.intercept.MethodInvocation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +12,11 @@ import org.springframework.security.core.Authentication;
 
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class CtMethodSecurityConfig extends GlobalMethodSecurityConfiguration {
+public class CtMethodSecurityConfiguration extends GlobalMethodSecurityConfiguration {
 
   private final CtMethodSecurityExpressionHandler methodSecurityExpressionHandler;
 
-  public CtMethodSecurityConfig(
+  public CtMethodSecurityConfiguration(
       @Autowired(
           required = false) CtMethodSecurityExpressionHandler methodSecurityExpressionHandler) {
 

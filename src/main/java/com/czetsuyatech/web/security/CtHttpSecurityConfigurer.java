@@ -1,4 +1,4 @@
-package com.czetsuyatech.spring.security;
+package com.czetsuyatech.web.security;
 
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 
