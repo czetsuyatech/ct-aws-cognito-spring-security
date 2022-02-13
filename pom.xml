@@ -13,10 +13,18 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>aws-cognito-spring-security</name>
   <description>aws-cognito-spring-security</description>
+
   <properties>
     <java.version>17</java.version>
+    <ct.universal.signon>1.0.0</ct.universal.signon>
   </properties>
+
   <dependencies>
+    <dependency>
+      <groupId>com.czetsuyatech</groupId>
+      <artifactId>ct-universal-signon</artifactId>
+      <version>${ct.universal.signon}</version>
+    </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-security</artifactId>

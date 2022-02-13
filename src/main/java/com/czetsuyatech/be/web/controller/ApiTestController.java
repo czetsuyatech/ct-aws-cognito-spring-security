@@ -1,4 +1,4 @@
-package com.czetsuyatech.web.controller;
+package com.czetsuyatech.be.web.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -42,7 +42,6 @@ public class ApiTestController {
 
     return "Hello " + auth.getPrincipal();
   }
-
 
   @GetMapping("/api/testing/authorized")
   @PreAuthorize("isAuthorized()")

@@ -1,5 +1,7 @@
-package com.czetsuyatech.web.security;
+package com.czetsuyatech.be.web.security;
 
+import com.czetsuyatech.web.security.CtHttpSecurityConfigurer;
+import com.czetsuyatech.web.security.EnableCtSecurity;
 import com.czetsuyatech.web.security.method.CtMethodSecurityExpressionHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -12,9 +14,9 @@ import org.springframework.security.web.authentication.session.NullAuthenticated
  * @author Edward P. Legaspi | czetsuya@gmail.com
  */
 @Configuration
-@EnableCtSecurity
 @RequiredArgsConstructor
-public class CtAppSecurityConfig {
+@EnableCtSecurity
+public class CtAppSecurityConfiguration {
 
   @Bean
   public CtHttpSecurityConfigurer httpSecurityConfig() {
