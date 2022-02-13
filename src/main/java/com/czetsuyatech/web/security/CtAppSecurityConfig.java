@@ -1,7 +1,5 @@
-package com.czetsuyatech.security;
+package com.czetsuyatech.web.security;
 
-import com.czetsuyatech.web.security.CtHttpSecurityConfigurer;
-import com.czetsuyatech.web.security.EnableCtSecurity;
 import com.czetsuyatech.web.security.method.CtMethodSecurityExpressionHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

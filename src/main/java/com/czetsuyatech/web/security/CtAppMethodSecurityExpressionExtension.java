@@ -1,11 +1,8 @@
-package com.czetsuyatech.security;
+package com.czetsuyatech.web.security;
 
 import com.czetsuyatech.web.security.method.DefaultMethodSecurityExpressionRoot;
 import org.springframework.security.core.Authentication;
 
-/**
- * @author Edward P. Legaspi | czetsuya@gmail.com
- */
 public class CtAppMethodSecurityExpressionExtension extends DefaultMethodSecurityExpressionRoot {
 
   public CtAppMethodSecurityExpressionExtension(Authentication authentication) {
