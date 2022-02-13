@@ -1,6 +1,6 @@
 package com.czetsuyatech.security;
 
-import com.czetsuyatech.spring.security.method.DefaultMethodSecurityExpressionRoot;
+import com.czetsuyatech.web.security.method.DefaultMethodSecurityExpressionRoot;
 import org.springframework.security.core.Authentication;
 
 /**
