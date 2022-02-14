@@ -16,7 +16,7 @@
 
   <properties>
     <java.version>17</java.version>
-    <ct.sevices.jwt.security.version>0.0.1-SNAPSHOT</ct.sevices.jwt.security.version>
+    <ct.sevices.jwt.security.version>0.0.1</ct.sevices.jwt.security.version>
   </properties>
 
   <organization>
