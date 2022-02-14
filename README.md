@@ -15,8 +15,8 @@ This library is released on Central, make sure to get the latest version.
 ```
 <dependency>
   <groupId>com.czetsuyatech</groupId>
-  <artifactId>ct-universal-signon</artifactId>
-  <version>${ct.universal.signon}</version>
+  <artifactId>ct-services-jwt-security</artifactId>
+  <version>${ct.services.jwt.security.version}</version>
 </dependency>
 ```
 
