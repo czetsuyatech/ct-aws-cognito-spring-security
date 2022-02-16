@@ -4,7 +4,7 @@
 
 ## Introduction
 
-This Spring Boot project demonstrates web and method security using ct-universal-signon.
+This Spring Boot project demonstrates web and method security using ![ct-services-jwt-security](https://github.com/czetsuya/ct-services-jwt-security)
 
 ## How to Use
 
@@ -79,8 +79,7 @@ public class CtAppSecurityConfiguration {
 
 ## Testing
 
-I have created a Spring Boot project that use this library available at https://github.com/czetsuya/aws-cognito-spring-security. This project contains the Security configuration, custom method expression
-handler, and sample controllers.
+This project contains the Security configuration, custom method expression handler, and sample controllers.
 
 ```
   @GetMapping("/hello")
