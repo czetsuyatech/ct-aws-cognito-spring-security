@@ -4,7 +4,7 @@
 
 ## Introduction
 
-This Spring Boot project demonstrates web and method security using ![ct-services-jwt-security](https://github.com/czetsuya/ct-services-jwt-security)
+This Spring Boot project demonstrates web and method security using [ct-services-jwt-security](https://github.com/czetsuya/ct-services-jwt-security)
 
 ## How to Use
 
