@@ -41,7 +41,7 @@ public class CtAppSecurityConfiguration {
   }
 
   @Bean
-  public CtMethodSecurityExpressionHandler methodSecurityExpressionHandler() {
-    return CtAppMethodSecurityExpressionExtension::new;
+  public CtMethodSecurityExpressionHandler methodSecurityFactory() {
+    return CtAppMethodSecurityExpressionRoot::new;
   }
 }
