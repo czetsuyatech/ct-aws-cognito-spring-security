@@ -1,4 +1,4 @@
-package com.czetsuyatech.be.web.controller;
+package com.czetsuyatech.be.web.controllers;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
