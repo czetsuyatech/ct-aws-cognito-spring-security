@@ -1,14 +1,12 @@
 package com.czetsuyatech.be.web.security;
 
-import com.czetsuyatech.web.security.CtHttpSecurityConfigurer;
-import com.czetsuyatech.web.security.EnableCtSecurity;
-import com.czetsuyatech.web.security.method.CtMethodSecurityExpressionHandler;
+import com.czetsuyatech.spring.security.EnableCtSecurity;
+import com.czetsuyatech.spring.security.method.CtMethodSecurityExpressionHandlerFactory;
+import com.czetsuyatech.spring.security.web.CtHttpSecurityConfigurer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.web.authentication.session.NullAuthenticatedSessionStrategy;
 
 /**
  * @author Edward P. Legaspi | czetsuya@gmail.com
@@ -20,28 +18,18 @@ public class CtAppSecurityConfiguration {
 
   @Bean
   public CtHttpSecurityConfigurer httpSecurityConfig() {
+
     return http ->
-        http.csrf().disable()
-            .cors()
-
-            .and()
-            .sessionManagement()
-            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            .sessionAuthenticationStrategy(new NullAuthenticatedSessionStrategy())
-
-            .and()
-            .httpBasic().disable()
-            .formLogin().disable()
-
-            .authorizeHttpRequests()
-            .antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
-            .antMatchers("/api/**").authenticated()
-            .anyRequest().permitAll()
-        ;
+        http
+            .authorizeHttpRequests(authz -> authz
+                .antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
+                .antMatchers("/api/**").authenticated()
+                .anyRequest().permitAll()
+            );
   }
 
   @Bean
-  public CtMethodSecurityExpressionHandler methodSecurityFactory() {
+  public CtMethodSecurityExpressionHandlerFactory methodSecurityFactory() {
     return CtAppMethodSecurityExpressionRoot::new;
   }
 }

@@ -10,7 +10,13 @@ app:
   security:
     jwt:
       cognito:
-        group-field: cognito:groups
-        user-name-field: username
         pool-id: ${AWS_COGNITO_POOL_ID}
         region: ${AWS_COGNITO_REGION}
+        jwks-set-uri: https://cognito-idp.${app.security.jwt.cognito.region}.amazonaws.com/${app.security.jwt.cognito.pool-id}/.well-known/jwks.json
+
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://cognito-idp.${app.security.jwt.cognito.region}.amazonaws.com/${app.security.jwt.cognito.pool-id}
