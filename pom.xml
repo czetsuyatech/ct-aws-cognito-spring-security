@@ -9,7 +9,7 @@
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
   <groupId>com.czetsuyatech</groupId>
-  <artifactId>aws-cognito-spring-security</artifactId>
+  <artifactId>ct-aws-cognito-spring-security</artifactId>
   <version>LATEST-SNAPSHOT</version>
   <name>aws-cognito-spring-security</name>
   <description>aws-cognito-spring-security</description>
