@@ -2,42 +2,48 @@
 
 ## Introduction
 
-This Spring Boot project demonstrates web and method security using [ct-services-jwt-security](https://github.com/czetsuya/ct-services-jwt-security)
+This Spring Boot project demonstrates web and method security using [ct-universal-signon-service](https://github.com/czetsuya/ct-universal-signon-service)
 
 ## How to Use
 
 ### Maven Dependency
 
-This library is released on Central, make sure to get the latest version.
+This library is released on Github, make sure to get the latest version.
 
 ```
 <dependency>
   <groupId>com.czetsuyatech</groupId>
-  <artifactId>ct-services-jwt-security</artifactId>
-  <version>${ct.services.jwt.security.version}</version>
+  <artifactId>ct-universal-signon-service</artifactId>
+  <version>${ct-universal-signon-service.version}</version>
 </dependency>
 ```
 
 ### Security Configuration Data
 
-We need to define the following Spring application configs to connect to our AWS Cognito instance to decode and verify
-the JWT token.
+We need to define the following Spring application configs to connect to our authenticatoin server instance to decode 
+and verify the JWT token. For example when using AWS Cognito.
 
 ```
 app:
   security:
     jwt:
       cognito:
-        group-field: cognito:groups
-        user-name-field: username
         pool-id: ${AWS_COGNITO_POOL_ID}
         region: ${AWS_COGNITO_REGION}
+        jwks-set-uri: https://cognito-idp.${app.security.jwt.cognito.region}.amazonaws.com/${app.security.jwt.cognito.pool-id}/.well-known/jwks.json
+
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://cognito-idp.${app.security.jwt.cognito.region}.amazonaws.com/${app.security.jwt.cognito.pool-id}
 ```
 
 ### Enabling Web and Method Security
 
 To enable the web and method security in your microservice. Create a new Java class CtAppSecurityConfiguration and
-annotate it with EnableCtSecurity. In this class we define the custom beans that generates the HttpSecurity and add it
+annotate it with EnableCtSecurity. In this class, we define the custom beans that generates the HttpSecurity and add it
 to the filter chain as well as the custom method security expression handler.
 
 ```
