@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This Spring Boot project demonstrates web and method security using [ct-universal-signon-service](https://github.com/czetsuya/ct-universal-signon-service)
+This Spring Boot project demonstrates web and method security using [ct-cognito-spring-security](https://github.com/czetsuya/ct-cognito-spring-security)
 
 ## How to Use
 
@@ -13,8 +13,8 @@ This library is released on Github, make sure to get the latest version.
 ```
 <dependency>
   <groupId>com.czetsuyatech</groupId>
-  <artifactId>ct-universal-signon-service</artifactId>
-  <version>${ct-universal-signon-service.version}</version>
+  <artifactId>ct-cognito-spring-security</artifactId>
+  <version>${ct-cognito-spring-security.version}</version>
 </dependency>
 ```
 
