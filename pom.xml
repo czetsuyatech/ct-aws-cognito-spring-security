@@ -16,7 +16,7 @@
 
   <properties>
     <java.version>17</java.version>
-    <ct-universal-signon-service.version>LATEST-SNAPSHOT</ct-universal-signon-service.version>
+    <ct-cognito-spring-security.version>LATEST-SNAPSHOT</ct-cognito-spring-security.version>
   </properties>
 
   <organization>
@@ -42,8 +42,8 @@
   <dependencies>
     <dependency>
       <groupId>com.czetsuyatech</groupId>
-      <artifactId>ct-universal-signon-service</artifactId>
-      <version>${ct-universal-signon-service.version}</version>
+      <artifactId>ct-cognito-spring-security</artifactId>
+      <version>${ct-cognito-spring-security.version}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
