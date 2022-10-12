@@ -1,4 +1,4 @@
-package com.czetsuyatech.be.web.security;
+package com.czetsuyatech.cognito.web.security;
 
 import com.czetsuyatech.spring.security.EnableCtSecurity;
 import com.czetsuyatech.spring.security.method.CtMethodSecurityExpressionHandlerFactory;

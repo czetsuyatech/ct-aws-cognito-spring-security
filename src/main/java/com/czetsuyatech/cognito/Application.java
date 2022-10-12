@@ -1,4 +1,4 @@
-package com.czetsuyatech.be;
+package com.czetsuyatech.cognito;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
