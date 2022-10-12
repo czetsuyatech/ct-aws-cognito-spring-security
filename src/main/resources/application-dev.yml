@@ -1,7 +1,7 @@
 logging:
   level:
-    root: error
-    com.czetsuyatech: debug
+    root: INFO
+    com.czetsuyatech: DEBUG
 
 server:
   port: 8080

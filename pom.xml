@@ -16,7 +16,7 @@
 
   <properties>
     <java.version>17</java.version>
-    <ct-iam-spring-security.version>LATEST-SNAPSHOT</ct-iam-spring-security.version>
+    <ct-iam-spring-security.version>0.1.0</ct-iam-spring-security.version>
   </properties>
 
   <organization>
@@ -29,6 +29,22 @@
       <url>https://opensource.org/licenses/MIT</url>
     </license>
   </licenses>
+
+  <distributionManagement>
+    <repository>
+      <id>github</id>
+      <name>GitHub Packages</name>
+      <url>https://maven.pkg.github.com/czetsuya/ct-aws-cognito-spring-security</url>
+    </repository>
+  </distributionManagement>
+
+  <repositories>
+    <repository>
+      <id>github</id>
+      <url>https://maven.pkg.github.com/czetsuya/packages</url>
+    </repository>
+  </repositories>
+
   <developers>
     <developer>
       <id>czetsuya</id>

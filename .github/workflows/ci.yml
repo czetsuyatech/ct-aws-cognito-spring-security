@@ -1,0 +1,125 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches: [ main ]
+  release:
+    types: [ published ]
+  pull_request:
+    branches: [ main ]
+    types: [ opened, reopened, synchronize, edited, ready_for_review ]
+
+jobs:
+  setup:
+    name: Init
+    runs-on: ubuntu-latest
+    steps:
+      - name: Init
+        run: |
+          echo "Start"
+
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - name: Configure Git
+        run: |
+          git config --global user.name "czetsuyatech-release-app[bot]"
+          git config --global user.email "czetsuyatech-release-app[bot]@users.noreply.github.com"
+        shell: bash
+
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Install SVU
+        run: |
+          mkdir -p $HOME/.local/bin
+          curl -L https://github.com/caarlos0/svu/releases/download/v1.9.0/svu_1.9.0_linux_amd64.tar.gz | tar zx -C $HOME/.local/bin
+          echo $HOME/.local/bin >> $GITHUB_PATH
+        shell: bash
+
+      - id: version
+        name: Version
+        run: |
+          incremental=true
+          latest=$(svu current --strip-prefix)
+          next=$(svu --strip-prefix)
+          
+          if [[ "$latest" == "$next" ]]; then
+            incremental=false
+          fi
+          
+          echo "::set-notice ::Latest version = $latest"
+          echo "::set-notice ::Next version = $next"
+          echo "::set-notice ::Incremental version = $incremental"
+          
+          echo "::set-output name=latest::$latest"
+          echo "::set-output name=next::$next"
+          echo "::set-output name=incremental::$incremental"
+        shell: bash
+
+      - name: Bump Version
+        run: |
+          mvn versions:set -DnewVersion="${{ steps.version.outputs.next }}" -DgenerateBackupPoms=false
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          fetch-depth: 0
+          cache: maven
+          settings-path: ${{ github.workspace }} # location for the settings.xml file
+
+      - name: Build with Maven
+        run: mvn -B clean install -DskipTests
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - id: artifacts
+        name: Set Artifacts Path
+        run: |
+          artifacts=""
+          
+          if stat -t target/**/*.jar >/dev/null 2>&1
+          then
+            artifacts="$artifacts target/**/*.jar"
+          fi
+          
+          if stat -t **/target/**/*.jar >/dev/null 2>&1
+          then
+            artifacts="$artifacts **/target/**/*.jar"
+          fi
+          
+          echo "::set-output name=artifacts::$artifacts"
+        shell: bash
+
+      - name: Deploy with Maven
+        run: mvn -B deploy -DskipTests -s $GITHUB_WORKSPACE/settings.xml
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Bump Commit
+        run: |
+          git commit -am "bump: ${{ steps.version.outputs.latest }} -> ${{ steps.version.outputs.next }}" -m "[skip ci]"
+          git push
+        shell: bash
+
+      - name: Create Release
+        run: |
+          gh release create ${{ steps.version.outputs.next }} --generate-notes ${{ steps.artifacts.outputs.artifacts }}
+          mvn versions:set -DnewVersion="LATEST-SNAPSHOT" -DgenerateBackupPoms=false
+          git commit -am "bump: ${{ steps.version.outputs.next }} -> LATEST-SNAPSHOT" -m "[skip ci]"
+          git push
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
