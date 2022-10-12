@@ -11,8 +11,8 @@
   <groupId>com.czetsuyatech</groupId>
   <artifactId>ct-aws-cognito-spring-security</artifactId>
   <version>LATEST-SNAPSHOT</version>
-  <name>aws-cognito-spring-security</name>
-  <description>aws-cognito-spring-security</description>
+  <name>ct-aws-cognito-spring-security</name>
+  <description>ct-aws-cognito-spring-security</description>
 
   <properties>
     <java.version>17</java.version>
